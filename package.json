@@ -1,0 +1,26 @@
+{
+  "name": "@foodmap/monorepo",
+  "version": "0.0.1",
+  "description": "Community Food Box Project",
+  "type": "module",
+  "author": "Alex Hicks <alex@alexhicks.net>",
+  "license": "MIT",
+  "packageManager": "pnpm@10.6.4",
+  "engines": {
+    "node": "^22.15"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@graphql-codegen/cli": "^5.0.5",
+    "@graphql-codegen/typescript": "^4.1.6",
+    "@graphql-codegen/typescript-operations": "^4.6.0",
+    "concurrently": "^9.1.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.1",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  }
+}

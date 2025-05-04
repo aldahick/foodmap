@@ -1,0 +1,30 @@
+on:
+  push:
+    branches: '*'
+name: Tests
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        package:
+          - api
+          - web
+    name: Build ${{ matrix.package }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm build
+        working-directory: ${{ matrix.package }}
+      - run: pnpm lint
+        working-directory: ${{ matrix.package }}

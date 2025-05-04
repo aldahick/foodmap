@@ -1,0 +1,60 @@
+{
+  "name": "@aldahick/bartop-web",
+  "version": "0.6.1",
+  "description": "Website for music bars. This is the React frontend.",
+  "type": "module",
+  "author": "Alex Hicks <alex@alexhicks.net>",
+  "license": "ISC",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aldahick/bartop.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aldahick/bartop/issues"
+  },
+  "engines": {
+    "node": "^22.11"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "concurrently 'vite build' 'tsc --noEmit'",
+    "preview": "vite preview --port 3000",
+    "lint": "biome check src",
+    "generate": "graphql-codegen -c codegen.graphql.ts"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.13.8",
+    "@icons-pack/react-simple-icons": "^12.7.0",
+    "@u-wave/react-vimeo": "^0.9.12",
+    "clsx": "^2.1.1",
+    "daisyui": "^5.0.29",
+    "date-fns": "^4.1.0",
+    "immutability-helper": "^3.1.1",
+    "jotai": "^2.12.3",
+    "lucide-react": "^0.503.0",
+    "react": "^19.1.0",
+    "react-alice-carousel": "^2.9.1",
+    "react-calendar": "^5.1.0",
+    "react-dom": "^19.1.0",
+    "react-router": "^7.5.3",
+    "react-router-dom": "^7.5.3",
+    "react-select": "^5.10.1",
+    "react-social-media-embed": "^2.5.18",
+    "react-toastify": "^11.0.5",
+    "remeda": "^2.21.3",
+    "rsc-daisyui": "^2.0.1",
+    "tailwind-merge": "^3.2.0"
+  },
+  "devDependencies": {
+    "@graphql-codegen/typescript-react-apollo": "^4.3.2",
+    "@tailwindcss/vite": "^4.1.4",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@vitejs/plugin-react": "^4.4.1",
+    "rollup-plugin-analyzer": "^4.0.0",
+    "sass": "^1.87.0",
+    "tailwindcss": "^4.1.4",
+    "vite": "^6.3.3"
+  }
+}

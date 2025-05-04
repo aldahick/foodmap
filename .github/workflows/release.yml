@@ -1,0 +1,48 @@
+on:
+  push:
+    tags: '*'
+name: Release
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  release:
+    strategy:
+      fail-fast: false
+      matrix:
+        package:
+          - api
+          - web
+    runs-on: ubuntu-latest
+    name: Release
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ${{ matrix.package }}/Dockerfile
+          push: true
+          tags: ghcr.io/aldahick/bartop-${{ matrix.package }}:${{ startsWith(github.ref_name, 'dev-') && 'dev' || 'latest'  }},ghcr.io/aldahick/bartop-${{ matrix.package }}:${{ github.ref_name }}
+          build-args: |
+            SENTRY_ENV=production
+            SENTRY_RELEASE=${{ github.ref_name }}
+      - uses: slackapi/slack-github-action@v1
+        if: ${{ failure() }}
+        with:
+          channel-id: ${{ vars.RELEASE_SLACK_CHANNEL_ID }}
+          slack-message: "❌ Failed to publish bartop-${{ matrix.package }}@${{ github.ref_name }}: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      - uses: slackapi/slack-github-action@v1
+        with:
+          channel-id: ${{ vars.RELEASE_SLACK_CHANNEL_ID }}
+          slack-message: "🚢 Published bartop-${{ matrix.package }}@${{ github.ref_name }} to GHCR"
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}

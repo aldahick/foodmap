@@ -1,0 +1,11 @@
+{
+  "name": "@foodmap/api",
+  "version": "0.0.1",
+  "main": "index.js",
+  "author": "Alex Hicks <alex@alexhicks.net>",
+  "license": "MIT",
+  "packageManager": "pnpm@10.6.4",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
