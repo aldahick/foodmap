@@ -29,20 +29,19 @@ jobs:
           context: .
           file: ${{ matrix.package }}/Dockerfile
           push: true
-          tags: ghcr.io/aldahick/bartop-${{ matrix.package }}:${{ startsWith(github.ref_name, 'dev-') && 'dev' || 'latest'  }},ghcr.io/aldahick/bartop-${{ matrix.package }}:${{ github.ref_name }}
-          build-args: |
-            SENTRY_ENV=production
-            SENTRY_RELEASE=${{ github.ref_name }}
+          tags: |
+            ghcr.io/aldahick/foodmap-${{ matrix.package }}:${{ startsWith(github.ref_name, 'dev-') && 'dev' || 'latest'  }},
+            ghcr.io/aldahick/foodmap-${{ matrix.package }}:${{ github.ref_name }}
       - uses: slackapi/slack-github-action@v1
         if: ${{ failure() }}
         with:
           channel-id: ${{ vars.RELEASE_SLACK_CHANNEL_ID }}
-          slack-message: "❌ Failed to publish bartop-${{ matrix.package }}@${{ github.ref_name }}: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          slack-message: "❌ Failed to publish foodmap-${{ matrix.package }}@${{ github.ref_name }}: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
       - uses: slackapi/slack-github-action@v1
         with:
           channel-id: ${{ vars.RELEASE_SLACK_CHANNEL_ID }}
-          slack-message: "🚢 Published bartop-${{ matrix.package }}@${{ github.ref_name }} to GHCR"
+          slack-message: "🚢 Published foodmap-${{ matrix.package }}@${{ github.ref_name }} to GHCR"
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
