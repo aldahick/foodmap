@@ -1,0 +1,72 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "files": {
+    "ignore": [
+      "*.fixture.json"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2
+  },
+  "organizeImports": {
+    "enabled": true
+  },
+  "javascript": {
+    "parser": {
+      "unsafeParameterDecoratorsEnabled": true
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "complexity": {
+        "noExcessiveCognitiveComplexity": "error",
+        "noUselessConstructor": "error",
+        "useSimplifiedLogicExpression": "error"
+      },
+      "correctness": {
+        "noUnusedImports": "error",
+        "noUnusedVariables": "warn",
+        "useExhaustiveDependencies": "warn",
+        "useHookAtTopLevel": "error"
+      },
+      "style": {
+        "noDefaultExport": "error",
+        "noShoutyConstants": "error",
+        "useBlockStatements": "error",
+        "useCollapsedElseIf": "error",
+        "useConsistentArrayType": "error",
+        "useForOf": "error",
+        "useFragmentSyntax": "error",
+        "useImportType": "off",
+        "useShorthandAssign": "error",
+        "useSingleCaseStatement": "error"
+      },
+      "suspicious": {
+        "noSkippedTests": "error",
+        "useAwait": "error"
+      }
+    }
+  },
+  "overrides": [
+    {
+      "include": [
+        "*.config.js",
+        "*.config.ts",
+        "*lintstagedrc.mjs",
+        "codegen.graphql.ts",
+        "vite.config.ts",
+        "vitest.config.ts"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "noDefaultExport": "off"
+          }
+        }
+      }
+    }
+  ]
+}
