@@ -1,0 +1,16 @@
+extend type Query {
+  authSsoRedirect: AuthRedirect!
+  authToken(token: String!): AuthToken!
+}
+
+type AuthRedirect {
+  state: String!
+  url: String!
+}
+
+type AuthToken {
+  expiresAt: Date!
+  token: String!
+  userId: ID!
+  user: User!
+}

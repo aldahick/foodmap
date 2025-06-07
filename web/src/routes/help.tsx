@@ -1,6 +1,11 @@
-import { LanguagesIcon, LinkIcon, MailIcon } from "lucide-react";
+import {
+  LanguagesIcon,
+  LinkIcon,
+  MailIcon,
+  ShieldUserIcon,
+} from "lucide-react";
 import React from "react";
-import { Link as RouterLink } from "react-router";
+import { Link, Link as RouterLink } from "react-router";
 import { chunk } from "remeda";
 import { Link as DaisyLink } from "rsc-daisyui";
 import { NavigateLayout } from "../components/navigate/NavigateLayout";
@@ -44,6 +49,12 @@ const ALL_LINKS = [
 export const HelpRoute: React.FC = () => {
   return (
     <NavigateLayout title="Help">
+      <Link
+        to="/admin/users"
+        className="text-gray-500 absolute z-20 bottom-16 right-4"
+      >
+        <ShieldUserIcon />
+      </Link>
       <div className="p-2.5">
         {chunk(ALL_LINKS, 2).map((links) => (
           <div key={links[0].to} className="flex">

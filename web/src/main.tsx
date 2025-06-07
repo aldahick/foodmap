@@ -2,7 +2,10 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Layout } from "./components/Layout";
+import { AdminLayout } from "./components/admin/AdminLayout";
 import { IndexRoute } from "./routes";
+import { AdminLoginRoute } from "./routes/admin/login";
+import { AdminUsersRoute } from "./routes/admin/users";
 import { HelpRoute } from "./routes/help";
 import { LanguageHelpRoute } from "./routes/help/language";
 import { ListHelpRoute } from "./routes/help/list";
@@ -35,6 +38,20 @@ const router = createBrowserRouter([
           {
             path: "map",
             Component: MapHelpRoute,
+          },
+        ],
+      },
+      {
+        path: "admin",
+        Component: AdminLayout,
+        children: [
+          {
+            path: "login",
+            Component: AdminLoginRoute,
+          },
+          {
+            path: "users",
+            Component: AdminUsersRoute,
           },
         ],
       },

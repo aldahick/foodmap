@@ -4,6 +4,13 @@
   "type": "module",
   "author": "Alex Hicks <alex@alexhicks.net>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aldahick/foodmap.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aldahick/foodmap/issues"
+  },
   "engines": {
     "node": "^22.15"
   },

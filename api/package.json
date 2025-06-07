@@ -1,11 +1,57 @@
 {
   "name": "@foodmap/api",
-  "version": "0.0.1",
-  "main": "index.js",
+  "version": "0.1.0",
+  "type": "module",
   "author": "Alex Hicks <alex@alexhicks.net>",
   "license": "MIT",
-  "packageManager": "pnpm@10.6.4",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aldahick/foodmap.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aldahick/foodmap/issues"
+  },
+  "engines": {
+    "node": "^22.15"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "NODE_OPTIONS=--enable-source-maps nest start --watch",
+    "start": "node --enable-source-maps dist/main.js",
+    "build": "nest build",
+    "lint": "biome check src",
+    "generate": "graphql-codegen -c codegen.graphql.ts"
+  },
+  "dependencies": {
+    "@apollo/server": "^4.12.2",
+    "@as-integrations/fastify": "npm:@aldahick/apollo-fastify@^2.2.2",
+    "@nestjs/apollo": "^13.1.0",
+    "@nestjs/common": "^11.1.3",
+    "@nestjs/core": "^11.1.3",
+    "@nestjs/graphql": "^13.1.0",
+    "@nestjs/platform-fastify": "^11.1.3",
+    "dotenv": "^16.5.0",
+    "fastify": "^5.3.3",
+    "google-auth-library": "^9.15.1",
+    "graphql": "^16.11.0",
+    "graphql-resolve-batch": "^1.0.3",
+    "jsonwebtoken": "^9.0.2",
+    "nest-winston": "^1.10.2",
+    "orchid-orm": "^1.49.4",
+    "winston": "^3.17.0",
+    "zod": "^3.25.56"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^9.8.0",
+    "@nestjs/cli": "^11.0.7",
+    "@nestjs/schematics": "^11.0.5",
+    "@nestjs/testing": "^11.1.3",
+    "@sentry/cli": "^2.46.0",
+    "@swc/cli": "0.7.7",
+    "@swc/core": "^1.11.31",
+    "@types/graphql-resolve-batch": "^1.1.11",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/node": "^22.15.30",
+    "c8": "^10.1.3",
+    "unplugin-swc": "^1.5.4"
   }
 }

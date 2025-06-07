@@ -1,0 +1,16 @@
+query getUsers {
+  users {
+    id
+    name
+    email
+    permissions
+  }
+}
+
+mutation upsertUser($params: UpsertUserParams!) {
+  upsertUser(params: $params)
+}
+
+mutation deleteUser($id: ID!) {
+  deleteUser(id: $id)
+}

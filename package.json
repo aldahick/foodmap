@@ -11,7 +11,8 @@
   },
   "scripts": {
     "dev": "pnpm run --parallel -r dev",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "generate": "pnpm run --parallel -r generate",
+    "version": "bash scripts/version.sh"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",

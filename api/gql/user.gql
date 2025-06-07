@@ -1,0 +1,23 @@
+type Query {
+  user: User!
+  users: [User!]!
+}
+
+type Mutation {
+  deleteUser(id: ID!): Boolean!
+  upsertUser(params: UpsertUserParams!): Boolean!
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  permissions: [Permission!]!
+}
+
+input UpsertUserParams {
+  id: ID
+  name: String!
+  email: String!
+  permissions: [Permission!]
+}

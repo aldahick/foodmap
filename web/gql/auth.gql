@@ -1,0 +1,20 @@
+query getAuthSsoRedirect {
+  redirect: authSsoRedirect {
+    url
+    state
+  }
+}
+
+query getAuthToken($token: String!) {
+  authToken(token: $token) {
+    ...AuthToken
+  }
+}
+
+fragment AuthToken on AuthToken {
+  expiresAt
+  token
+  user {
+    permissions
+  }
+}
