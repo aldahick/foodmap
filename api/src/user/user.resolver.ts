@@ -1,5 +1,5 @@
 import { ForbiddenException, UseGuards } from "@nestjs/common";
-import { Args, Context, Mutation, Query, Resolver } from "@nestjs/graphql";
+import { Args, Context, Resolver } from "@nestjs/graphql";
 import type { AuthContext } from "../auth/auth.context.js";
 import { AuthGuard } from "../auth/auth.guard.js";
 import {
@@ -9,6 +9,7 @@ import {
   IPermission,
   type IQuery,
 } from "../graphql.js";
+import { TypedMutation, TypedQuery } from "../util/graphql.util.js";
 import { UserService } from "./user.service.js";
 
 @Resolver()
@@ -16,7 +17,7 @@ export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
   @UseGuards(new AuthGuard([]))
-  @Query("user")
+  @TypedQuery("user")
   async get(@Context() context: AuthContext): Promise<IQuery["user"]> {
     const user = await this.userService.get({ id: context.userId });
     if (!user) {
@@ -26,14 +27,14 @@ export class UserResolver {
   }
 
   @UseGuards(new AuthGuard(IPermission.Users))
-  @Query("users")
+  @TypedQuery("users")
   async getAll(): Promise<IQuery["users"]> {
     const users = await this.userService.getMany();
     return users.map((user) => this.userService.toGql(user));
   }
 
   @UseGuards(new AuthGuard(IPermission.Users))
-  @Mutation("upsertUser")
+  @TypedMutation("upsertUser")
   async upsert(
     @Args() { params }: IMutationUpsertUserArgs,
     @Context() context: AuthContext,
@@ -47,7 +48,7 @@ export class UserResolver {
   }
 
   @UseGuards(new AuthGuard(IPermission.Users))
-  @Mutation("deleteUser")
+  @TypedMutation("deleteUser")
   async delete(
     @Args() { id }: IMutationDeleteUserArgs,
   ): Promise<IMutation["deleteUser"]> {

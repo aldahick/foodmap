@@ -1,12 +1,8 @@
 import { NotFoundException, NotImplementedException } from "@nestjs/common";
-import { Args, Query, Resolver } from "@nestjs/graphql";
-import type {
-  IAuthRedirect,
-  IAuthToken,
-  IQueryAuthTokenArgs,
-} from "../graphql.js";
+import { Args, Resolver } from "@nestjs/graphql";
+import type { IAuthToken, IQueryAuthTokenArgs } from "../graphql.js";
 import { UserService } from "../user/user.service.js";
-import { BatchResolveField } from "../util/graphql.util.js";
+import { BatchResolveField, TypedQuery } from "../util/graphql.util.js";
 import { AuthGoogleService } from "./auth-google.service.js";
 import { AuthTokenService } from "./auth-token.service.js";
 
@@ -18,16 +14,16 @@ export class AuthResolver {
     private readonly userService: UserService,
   ) {}
 
-  @Query("authSsoRedirect")
-  ssoRedirect(): IAuthRedirect {
-    return this.googleService.getRedirect();
+  @TypedQuery("authSsoRedirect")
+  ssoRedirect() {
+    return Promise.resolve(this.googleService.getRedirect());
   }
 
-  @Query("authToken")
-  token(@Args() { token }: IQueryAuthTokenArgs): IAuthToken {
+  @TypedQuery("authToken")
+  token(@Args() { token }: IQueryAuthTokenArgs) {
     if (token) {
       const verified = this.tokenService.verify(token);
-      return this.tokenService.toGql(verified);
+      return Promise.resolve(this.tokenService.toGql(verified));
     }
     throw new NotImplementedException();
   }

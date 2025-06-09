@@ -1,0 +1,28 @@
+extend type Query {
+  foodboxes: [Foodbox!]!
+}
+
+extend type Mutation {
+  deleteFoodbox(id: ID!): Boolean!
+  reportFoodboxEmpty(id: ID!): Boolean!
+  upsertFoodbox(id: ID, input: FoodboxInput!): Foodbox!
+}
+
+type Foodbox {
+  id: ID!
+  name: String!
+  state: FoodboxState!
+  position: Position!
+}
+
+enum FoodboxState {
+  FULL
+  REPORTED_EMPTY
+  CONFIRMED_EMPTY
+}
+
+input FoodboxInput {
+  position: PositionInput!
+  name: String!
+  state: FoodboxState!
+}

@@ -1,5 +1,10 @@
 import { Args, Context, Info, ResolveField, Root } from "@nestjs/graphql";
+import {
+  Mutation as MutationDecorator,
+  Query as QueryDecorator,
+} from "@nestjs/graphql";
 import { createBatchResolver } from "graphql-resolve-batch";
+import type { IMutation, IQuery } from "../graphql.js";
 
 const batchParamDecorators = [Root, Args, Context, Info];
 export const BatchResolveField =
@@ -34,3 +39,25 @@ export const BatchResolveField =
     }
     return ResolveField(propertyName)(target, propertyKey, descriptor);
   };
+
+export const TypedQuery =
+  <Name extends keyof IQuery, Parameters extends unknown[]>(name: Name) =>
+  (
+    target: object,
+    propertyKey: string | symbol,
+    descriptor: TypedPropertyDescriptor<
+      (...args: Parameters) => Promise<IQuery[Name]>
+    >,
+  ) =>
+    QueryDecorator(name)(target, propertyKey, descriptor);
+
+export const TypedMutation =
+  <Name extends keyof IMutation, Parameters extends unknown[]>(name: Name) =>
+  (
+    target: object,
+    propertyKey: string | symbol,
+    descriptor: TypedPropertyDescriptor<
+      (...args: Parameters) => Promise<IMutation[Name]>
+    >,
+  ) =>
+    MutationDecorator(name)(target, propertyKey, descriptor);

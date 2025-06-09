@@ -42,14 +42,50 @@ export type IAuthToken = {
   userId: Scalars["ID"]["output"];
 };
 
+export type IFoodbox = {
+  __typename?: "Foodbox";
+  id: Scalars["ID"]["output"];
+  name: Scalars["String"]["output"];
+  position: IPosition;
+  state: IFoodboxState;
+};
+
+export type IFoodboxInput = {
+  name: Scalars["String"]["input"];
+  position: IPositionInput;
+  state: IFoodboxState;
+};
+
+export enum IFoodboxState {
+  ConfirmedEmpty = "CONFIRMED_EMPTY",
+  Full = "FULL",
+  ReportedEmpty = "REPORTED_EMPTY",
+}
+
 export type IMutation = {
   __typename?: "Mutation";
+  deleteFoodbox: Scalars["Boolean"]["output"];
   deleteUser: Scalars["Boolean"]["output"];
+  reportFoodboxEmpty: Scalars["Boolean"]["output"];
+  upsertFoodbox: IFoodbox;
   upsertUser: Scalars["Boolean"]["output"];
+};
+
+export type IMutationDeleteFoodboxArgs = {
+  id: Scalars["ID"]["input"];
 };
 
 export type IMutationDeleteUserArgs = {
   id: Scalars["ID"]["input"];
+};
+
+export type IMutationReportFoodboxEmptyArgs = {
+  id: Scalars["ID"]["input"];
+};
+
+export type IMutationUpsertFoodboxArgs = {
+  id?: InputMaybe<Scalars["ID"]["input"]>;
+  input: IFoodboxInput;
 };
 
 export type IMutationUpsertUserArgs = {
@@ -58,13 +94,26 @@ export type IMutationUpsertUserArgs = {
 
 export enum IPermission {
   All = "ALL",
+  Foodboxes = "FOODBOXES",
   Users = "USERS",
 }
+
+export type IPosition = {
+  __typename?: "Position";
+  lat: Scalars["Float"]["output"];
+  lng: Scalars["Float"]["output"];
+};
+
+export type IPositionInput = {
+  lat: Scalars["Float"]["input"];
+  lng: Scalars["Float"]["input"];
+};
 
 export type IQuery = {
   __typename?: "Query";
   authSsoRedirect: IAuthRedirect;
   authToken: IAuthToken;
+  foodboxes: IFoodbox[];
   user: IUser;
   users: IUser[];
 };

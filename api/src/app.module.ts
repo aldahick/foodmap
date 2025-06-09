@@ -7,6 +7,7 @@ import { GraphQLModule } from "@nestjs/graphql";
 import type { FastifyRequest } from "fastify";
 import { AuthContextService } from "./auth/auth-context.service.js";
 import { AuthModule } from "./auth/auth.module.js";
+import { FoodboxModule } from "./foodbox/foodbox.module.js";
 import { HealthModule } from "./health/health.module.js";
 import { ScalarModule } from "./scalar/scalar.module.js";
 import { UserModule } from "./user/user.module.js";
@@ -36,8 +37,9 @@ const schemaDir = path.join(fileURLToPath(import.meta.url), "../../gql/**");
         typePaths: [schemaDir],
       }),
     }),
-    HealthModule,
     AuthModule,
+    FoodboxModule,
+    HealthModule,
     ScalarModule,
     UserModule,
   ],

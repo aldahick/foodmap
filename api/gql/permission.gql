@@ -1,4 +1,5 @@
 enum Permission {
   ALL
+  FOODBOXES
   USERS
 }

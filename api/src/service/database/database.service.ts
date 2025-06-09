@@ -2,10 +2,12 @@ import { Injectable, type OnApplicationBootstrap } from "@nestjs/common";
 import { type OrchidORM, orchidORM } from "orchid-orm";
 import { type Config, InjectConfig } from "../config/config.service.js";
 import { runMigration } from "./migration.js";
+import { FoodboxTable } from "./tables/foodbox.table.js";
 import { UserPermissionTable } from "./tables/user-permission.table.js";
 import { UserTable } from "./tables/user.table.js";
 
 const tables = {
+  foodboxes: FoodboxTable,
   userPermissions: UserPermissionTable,
   users: UserTable,
 };
@@ -17,6 +19,7 @@ type Tables = { [Key in keyof typeof tables]: Client[Key] };
 export class DatabaseService implements Tables, OnApplicationBootstrap {
   readonly orm: Client;
 
+  foodboxes!: Tables["foodboxes"];
   userPermissions!: Tables["userPermissions"];
   users!: Tables["users"];
 
