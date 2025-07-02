@@ -4,6 +4,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import { AdminLayout } from "./components/admin/AdminLayout";
 import { IndexRoute } from "./routes";
+import { AdminFoodboxesRoute } from "./routes/admin/foodboxes";
 import { AdminLoginRoute } from "./routes/admin/login";
 import { AdminUsersRoute } from "./routes/admin/users";
 import { HelpRoute } from "./routes/help";
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
         path: "admin",
         Component: AdminLayout,
         children: [
+          {
+            path: "foodboxes",
+            Component: AdminFoodboxesRoute,
+          },
           {
             path: "login",
             Component: AdminLoginRoute,

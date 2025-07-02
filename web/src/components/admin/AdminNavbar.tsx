@@ -6,4 +6,9 @@ export const ADMIN_NAVBAR_LINKS = [
     url: "/admin/users",
     permission: IPermission.Users,
   },
+  {
+    label: "Foodboxes",
+    url: "/admin/foodboxes",
+    permission: IPermission.Foodboxes,
+  },
 ];
