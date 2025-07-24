@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { isDeepEqual } from "remeda";
 
 /** Indianapolis (specifically, the Circle) */
-const DEFAULT_POSITION = {
+export const DEFAULT_POSITION = {
   lat: 39.768402,
   lng: -86.158066,
 };

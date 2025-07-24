@@ -168,6 +168,44 @@ export type IAuthTokenFragment = {
   user: { __typename?: "User"; permissions: IPermission[] };
 };
 
+export type IGetFoodboxesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type IGetFoodboxesQuery = {
+  __typename?: "Query";
+  foodboxes: Array<{
+    __typename?: "Foodbox";
+    id: string;
+    name: string;
+    state: IFoodboxState;
+    position: { __typename?: "Position"; lat: number; lng: number };
+  }>;
+};
+
+export type IUpsertFoodboxMutationVariables = Exact<{
+  id?: InputMaybe<Scalars["ID"]["input"]>;
+  input: IFoodboxInput;
+}>;
+
+export type IUpsertFoodboxMutation = {
+  __typename?: "Mutation";
+  upsertFoodbox: {
+    __typename?: "Foodbox";
+    id: string;
+    name: string;
+    state: IFoodboxState;
+    position: { __typename?: "Position"; lat: number; lng: number };
+  };
+};
+
+export type IDeleteFoodboxMutationVariables = Exact<{
+  id: Scalars["ID"]["input"];
+}>;
+
+export type IDeleteFoodboxMutation = {
+  __typename?: "Mutation";
+  deleteFoodbox: boolean;
+};
+
 export type IGetUsersQueryVariables = Exact<{ [key: string]: never }>;
 
 export type IGetUsersQuery = {
@@ -367,6 +405,194 @@ export type GetAuthTokenSuspenseQueryHookResult = ReturnType<
 export type GetAuthTokenQueryResult = Apollo.QueryResult<
   IGetAuthTokenQuery,
   IGetAuthTokenQueryVariables
+>;
+export const GetFoodboxesDocument = gql`
+    query getFoodboxes {
+  foodboxes {
+    id
+    name
+    position {
+      lat
+      lng
+    }
+    state
+  }
+}
+    `;
+
+/**
+ * __useGetFoodboxesQuery__
+ *
+ * To run a query within a React component, call `useGetFoodboxesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetFoodboxesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetFoodboxesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetFoodboxesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    IGetFoodboxesQuery,
+    IGetFoodboxesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<IGetFoodboxesQuery, IGetFoodboxesQueryVariables>(
+    GetFoodboxesDocument,
+    options,
+  );
+}
+export function useGetFoodboxesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    IGetFoodboxesQuery,
+    IGetFoodboxesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<IGetFoodboxesQuery, IGetFoodboxesQueryVariables>(
+    GetFoodboxesDocument,
+    options,
+  );
+}
+export function useGetFoodboxesSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        IGetFoodboxesQuery,
+        IGetFoodboxesQueryVariables
+      >,
+) {
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    IGetFoodboxesQuery,
+    IGetFoodboxesQueryVariables
+  >(GetFoodboxesDocument, options);
+}
+export type GetFoodboxesQueryHookResult = ReturnType<
+  typeof useGetFoodboxesQuery
+>;
+export type GetFoodboxesLazyQueryHookResult = ReturnType<
+  typeof useGetFoodboxesLazyQuery
+>;
+export type GetFoodboxesSuspenseQueryHookResult = ReturnType<
+  typeof useGetFoodboxesSuspenseQuery
+>;
+export type GetFoodboxesQueryResult = Apollo.QueryResult<
+  IGetFoodboxesQuery,
+  IGetFoodboxesQueryVariables
+>;
+export const UpsertFoodboxDocument = gql`
+    mutation upsertFoodbox($id: ID, $input: FoodboxInput!) {
+  upsertFoodbox(id: $id, input: $input) {
+    id
+    name
+    position {
+      lat
+      lng
+    }
+    state
+  }
+}
+    `;
+export type IUpsertFoodboxMutationFn = Apollo.MutationFunction<
+  IUpsertFoodboxMutation,
+  IUpsertFoodboxMutationVariables
+>;
+
+/**
+ * __useUpsertFoodboxMutation__
+ *
+ * To run a mutation, you first call `useUpsertFoodboxMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpsertFoodboxMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [upsertFoodboxMutation, { data, loading, error }] = useUpsertFoodboxMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpsertFoodboxMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    IUpsertFoodboxMutation,
+    IUpsertFoodboxMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    IUpsertFoodboxMutation,
+    IUpsertFoodboxMutationVariables
+  >(UpsertFoodboxDocument, options);
+}
+export type UpsertFoodboxMutationHookResult = ReturnType<
+  typeof useUpsertFoodboxMutation
+>;
+export type UpsertFoodboxMutationResult =
+  Apollo.MutationResult<IUpsertFoodboxMutation>;
+export type UpsertFoodboxMutationOptions = Apollo.BaseMutationOptions<
+  IUpsertFoodboxMutation,
+  IUpsertFoodboxMutationVariables
+>;
+export const DeleteFoodboxDocument = gql`
+    mutation deleteFoodbox($id: ID!) {
+  deleteFoodbox(id: $id)
+}
+    `;
+export type IDeleteFoodboxMutationFn = Apollo.MutationFunction<
+  IDeleteFoodboxMutation,
+  IDeleteFoodboxMutationVariables
+>;
+
+/**
+ * __useDeleteFoodboxMutation__
+ *
+ * To run a mutation, you first call `useDeleteFoodboxMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteFoodboxMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteFoodboxMutation, { data, loading, error }] = useDeleteFoodboxMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteFoodboxMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    IDeleteFoodboxMutation,
+    IDeleteFoodboxMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    IDeleteFoodboxMutation,
+    IDeleteFoodboxMutationVariables
+  >(DeleteFoodboxDocument, options);
+}
+export type DeleteFoodboxMutationHookResult = ReturnType<
+  typeof useDeleteFoodboxMutation
+>;
+export type DeleteFoodboxMutationResult =
+  Apollo.MutationResult<IDeleteFoodboxMutation>;
+export type DeleteFoodboxMutationOptions = Apollo.BaseMutationOptions<
+  IDeleteFoodboxMutation,
+  IDeleteFoodboxMutationVariables
 >;
 export const GetUsersDocument = gql`
     query getUsers {

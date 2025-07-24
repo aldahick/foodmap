@@ -19,4 +19,21 @@ migration.change(async (db) => {
     }),
     (t) => [t.primaryKey(["userId", "permission"])],
   );
+
+  await db.createEnum("foodbox_state", [
+    "FULL",
+    "REPORTED_EMPTY",
+    "CONFIRMED_EMPTY",
+  ]);
+  await db.createTable(
+    "foodboxes",
+    (t) => ({
+      id: t.uuid().primaryKey(),
+      name: t.text(),
+      lat: t.numeric(),
+      lng: t.numeric(),
+      state: t.enum("foodbox_state"),
+    }),
+    (t) => [t.unique(["lat", "lng"])],
+  );
 });

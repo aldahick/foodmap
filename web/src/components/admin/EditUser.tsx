@@ -13,6 +13,7 @@ import {
 
 const permissionLabels: Record<IPermission, string> = {
   [IPermission.All]: "All",
+  [IPermission.Foodboxes]: "Manage Foodboxes",
   [IPermission.Users]: "Manage Users",
 };
 

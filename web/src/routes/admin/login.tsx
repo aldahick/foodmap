@@ -15,7 +15,7 @@ export const AdminLoginRoute: React.FC = () => {
     const link = ADMIN_NAVBAR_LINKS.find((link) =>
       token.user.permissions.includes(link.permission),
     );
-    navigate(link?.url ?? "/admin/users");
+    navigate(link?.url ?? "/admin/foodboxes");
   };
 
   return (

@@ -1,0 +1,27 @@
+query getFoodboxes {
+  foodboxes {
+    id
+    name
+    position {
+      lat
+      lng
+    }
+    state
+  }
+}
+
+mutation upsertFoodbox($id: ID, $input: FoodboxInput!) {
+  upsertFoodbox(id: $id, input: $input) {
+    id
+    name
+    position {
+      lat
+      lng
+    }
+    state
+  }
+}
+
+mutation deleteFoodbox($id: ID!) {
+  deleteFoodbox(id: $id)
+}

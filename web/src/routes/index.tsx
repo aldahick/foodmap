@@ -1,11 +1,11 @@
 import type React from "react";
-import { GoogleMap } from "../components/GoogleMap";
+import { GoogleMap } from "../components/map/GoogleMap";
 import { NavigateLayout } from "../components/navigate/NavigateLayout";
 
 export const IndexRoute: React.FC = () => {
   return (
     <NavigateLayout title="Map">
-      <GoogleMap />
+      <GoogleMap mapId="VIEW" markers={[]} />
     </NavigateLayout>
   );
 };
