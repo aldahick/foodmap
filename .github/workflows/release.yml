@@ -32,6 +32,8 @@ jobs:
           tags: |
             ghcr.io/aldahick/foodmap-${{ matrix.package }}:${{ startsWith(github.ref_name, 'dev-') && 'dev' || 'latest'  }},
             ghcr.io/aldahick/foodmap-${{ matrix.package }}:${{ github.ref_name }}
+          build-args: |
+            MAPS_KEY=${{ secrets.GOOGLE_MAPS_KEY }}
       - uses: slackapi/slack-github-action@v1
         if: ${{ failure() }}
         with:
