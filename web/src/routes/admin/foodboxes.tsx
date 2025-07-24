@@ -37,17 +37,11 @@ export const AdminFoodboxesRoute: React.FC = () => {
     refetch();
   };
 
-  if (loading) {
+  if (loading || error) {
     return (
       <div className="flex items-center justify-center h-screen">
-        Loading...
-      </div>
-    );
-  }
-  if (error) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        Error: {error.message}
+        {loading && "Loading..."}
+        {error && `Error: ${error.message}`}
       </div>
     );
   }

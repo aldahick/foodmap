@@ -23,19 +23,19 @@ const stateLabel: Record<IFoodboxState, string> = {
 export const FoodboxMarker: React.FC<{
   foodbox: IFoodbox;
   showActions: boolean;
-  onEdit: () => void;
-  onDelete: () => void;
+  onEdit?: () => void;
+  onDelete?: () => void;
 }> = ({ foodbox, onEdit, onDelete }) => {
   const [markerRef, marker] = useAdvancedMarkerRef();
   const [showInfo, setShowInfo] = useState(false);
 
   const handleEditClick = () => {
-    onEdit();
+    onEdit?.();
     setShowInfo(false);
   };
 
   const handleDeleteClick = () => {
-    onDelete();
+    onDelete?.();
     setShowInfo(false);
   };
 
