@@ -38,10 +38,18 @@ export const AdminFoodboxesRoute: React.FC = () => {
   };
 
   if (loading) {
-    return <div className="flex items-center justify-center h-screen">Loading...</div>;
+    return (
+      <div className="flex items-center justify-center h-screen">
+        Loading...
+      </div>
+    );
   }
   if (error) {
-    return <div className="flex items-center justify-center h-screen">Error: {error.message}</div>;
+    return (
+      <div className="flex items-center justify-center h-screen">
+        Error: {error.message}
+      </div>
+    );
   }
 
   return (
@@ -49,7 +57,7 @@ export const AdminFoodboxesRoute: React.FC = () => {
       <div className="p-4 bg-white shadow-md">
         <h1 className="text-2xl font-bold">Manage Foodboxes</h1>
       </div>
-      
+
       <div className="flex-1">
         <AdminFoodboxMap
           foodboxes={data?.foodboxes || []}
