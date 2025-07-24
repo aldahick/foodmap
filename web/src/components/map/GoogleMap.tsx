@@ -16,7 +16,7 @@ import { cn } from "../../util/style";
 
 interface GoogleMapProps {
   mapId: string;
-  markers: {
+  markers?: {
     id: string;
     position: { lat: number; lng: number };
     color?: string;
@@ -26,6 +26,7 @@ interface GoogleMapProps {
   showLocationButton?: boolean;
   showZoomControl?: boolean;
   className?: string;
+  children?: React.ReactNode;
 }
 
 export const GoogleMap: React.FC<GoogleMapProps> = ({
@@ -35,6 +36,7 @@ export const GoogleMap: React.FC<GoogleMapProps> = ({
   showZoomControl = true,
   mapId,
   className,
+  children,
 }) => {
   const geolocation = useGeolocation();
   const [trackSelf, setTrackSelf] = useState(false);
@@ -110,19 +112,20 @@ export const GoogleMap: React.FC<GoogleMapProps> = ({
             />
           </AdvancedMarker>
         )}
-        {markers.map((marker) => (
-          <AdvancedMarker
-            key={marker.id}
-            position={marker.position}
-            title={marker.title}
-          >
-            <Pin
-              background={marker.color || "#ef4444"}
-              glyphColor="white"
-              borderColor="black"
-            />
-          </AdvancedMarker>
-        ))}
+        {children ||
+          markers?.map((marker) => (
+            <AdvancedMarker
+              key={marker.id}
+              position={marker.position}
+              title={marker.title}
+            >
+              <Pin
+                background={marker.color || "#ef4444"}
+                glyphColor="white"
+                borderColor="black"
+              />
+            </AdvancedMarker>
+          ))}
       </ReactGoogleMap>
     </APIProvider>
   );

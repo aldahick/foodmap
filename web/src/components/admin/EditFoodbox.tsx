@@ -46,6 +46,8 @@ export const EditFoodbox: React.FC<EditFoodboxProps> = ({
   const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault();
 
+    console.log(formData, foodbox?.id);
+
     try {
       await upsertFoodbox({
         variables: {
@@ -156,14 +158,14 @@ export const EditFoodbox: React.FC<EditFoodboxProps> = ({
             </Select>
           </div>
 
-          <Modal.Action className="flex justify-end gap-2 pt-4">
+          <div className="modal-action flex justify-end gap-2 pt-4">
             <Button type="button" color="neutral" onClick={onClose}>
               Cancel
             </Button>
             <Button type="submit" color="primary" disabled={loading}>
               {loading ? "Saving..." : "Save"}
             </Button>
-          </Modal.Action>
+          </div>
         </form>
       </Modal.Box>
     </Modal>
