@@ -1,12 +1,17 @@
+import { APIProvider, MapMouseEvent } from "@vis.gl/react-google-maps";
 import { useEffect, useState } from "react";
 import { entries } from "remeda";
 import { Button, Input, Modal, Select } from "rsc-daisyui";
+import { config } from "../../config";
+import { DEFAULT_POSITION } from "../../hooks/useGeolocation";
 import {
   IFoodbox,
   IFoodboxInput,
   IFoodboxState,
   useUpsertFoodboxMutation,
 } from "../../sdk/graphql.types";
+import { AddressGeocoder } from "../map/AddressGeocoder";
+import { GoogleMap } from "../map/GoogleMap";
 
 interface EditFoodboxProps {
   foodbox: IFoodbox | null;
@@ -19,7 +24,7 @@ export const EditFoodbox: React.FC<EditFoodboxProps> = ({
 }) => {
   const [formData, setFormData] = useState<IFoodboxInput>({
     name: "",
-    position: { lat: 0, lng: 0 },
+    position: DEFAULT_POSITION, // Default to Indianapolis
     state: IFoodboxState.Full,
   });
 
@@ -64,14 +69,17 @@ export const EditFoodbox: React.FC<EditFoodboxProps> = ({
     }));
   };
 
-  const handlePositionChange = (field: "lat" | "lng", value: string) => {
-    const numValue = Number.parseFloat(value) || 0;
+  const handleMapClick = (e: MapMouseEvent) => {
     setFormData((prev) => ({
       ...prev,
-      position: {
-        ...prev.position,
-        [field]: numValue,
-      },
+      position: e.detail.latLng ?? prev.position,
+    }));
+  };
+
+  const handleLocationSelect = (position: google.maps.LatLngLiteral) => {
+    setFormData((prev) => ({
+      ...prev,
+      position,
     }));
   };
 
@@ -79,7 +87,7 @@ export const EditFoodbox: React.FC<EditFoodboxProps> = ({
     <Modal open onClose={onClose}>
       <Modal.Box>
         <h3 className="font-bold text-lg">
-          {foodbox ? "Edit Foodbox" : "Create Foodbox"}
+          {foodbox ? "Edit " : "Create "}Foodbox
         </h3>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -98,40 +106,31 @@ export const EditFoodbox: React.FC<EditFoodboxProps> = ({
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label
-                htmlFor="foodbox-lat"
-                className="block text-sm font-medium mb-1"
-              >
-                Latitude
-              </label>
-              <Input
-                id="foodbox-lat"
-                type="number"
-                step="0.000001"
-                value={formData.position.lat}
-                onChange={(e) => handlePositionChange("lat", e.target.value)}
-                placeholder="Latitude"
-                required
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="foodbox-lng"
-                className="block text-sm font-medium mb-1"
-              >
-                Longitude
-              </label>
-              <Input
-                id="foodbox-lng"
-                type="number"
-                step="0.000001"
-                value={formData.position.lng}
-                onChange={(e) => handlePositionChange("lng", e.target.value)}
-                placeholder="Longitude"
-                required
-              />
+          <div>
+            <div className="text-sm font-medium mb-1">Location</div>
+            <div className="space-y-2">
+              <APIProvider apiKey={config.googleMapsApiKey}>
+                <AddressGeocoder onLocationSelect={handleLocationSelect} />
+              </APIProvider>
+              <div className="text-xs text-gray-600">
+                Or click on the map to select a location
+              </div>
+              <div className="h-64 w-full rounded border">
+                <GoogleMap
+                  mapId="EDIT"
+                  onClick={handleMapClick}
+                  showLocationButton={false}
+                  className="h-full w-full"
+                  markers={[
+                    {
+                      id: "editing",
+                      position: formData.position,
+                      color: "#ef4444",
+                      title: "Foodbox location",
+                    },
+                  ]}
+                />
+              </div>
             </div>
           </div>
 
