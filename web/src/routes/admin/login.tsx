@@ -20,7 +20,7 @@ export const AdminLoginRoute: React.FC = () => {
 
   return (
     <NavigateLayout title="Log In">
-      <div className="flex flex-col items-center gap-4">
+      <div className="flex flex-col items-center gap-4 mt-6">
         <span className="font-bold text-lg text-center">
           Community Food Box Project
         </span>

@@ -51,29 +51,29 @@ export const HelpRoute: React.FC = () => {
     <NavigateLayout title="Help">
       <Link
         to="/admin/users"
-        className="text-gray-500 absolute z-20 bottom-16 right-4"
+        className="text-gray-500 fixed z-20 bottom-16 right-4"
       >
-        <ShieldUserIcon />
+        <ShieldUserIcon size={24} />
       </Link>
-      <div className="p-2.5">
-        {chunk(ALL_LINKS, 2).map((links) => (
-          <div key={links[0].to} className="flex">
-            {links.map((link) => {
-              const Link = link.to.startsWith("/") ? RouterLink : DaisyLink;
-              return (
-                <div key={link.to} className="px-4 py-3 w-[50%]">
-                  <Link to={link.to} className="no-underline">
-                    <div className="px-4 mb-2">
-                      <link.Icon />
-                    </div>
-                    <div className="text-center w-full">{link.title}</div>
-                  </Link>
+      {chunk(ALL_LINKS, 2).map((links) => (
+        <div key={links[0].to} className="flex justify-between">
+          {links.map((link) => {
+            const Link = link.to.startsWith("/") ? RouterLink : DaisyLink;
+            return (
+              <Link
+                key={link.to}
+                to={link.to}
+                className="no-underline px-4 py-2 w-[48%]"
+              >
+                <div className="px-4 mb-2">
+                  <link.Icon />
                 </div>
-              );
-            })}
-          </div>
-        ))}
-      </div>
+                <p className="text-center w-full">{link.title}</p>
+              </Link>
+            );
+          })}
+        </div>
+      ))}
     </NavigateLayout>
   );
 };

@@ -26,7 +26,7 @@ export const NavigateFooter: React.FC = () => {
   const { pathname } = useLocation();
 
   return (
-    <Dock>
+    <Dock className="px-0">
       {ALL_LINKS.map((link) => (
         <Dock.Item
           key={link.to}

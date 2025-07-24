@@ -12,9 +12,12 @@ export const NavigateLayout: React.FC<NavigateLayoutProps> = ({
   ...props
 }) => {
   return (
-    <div className="w-screen">
+    <div className="max-w-screen max-h-screen h-screen">
       <NavigateHeader icon={MapPinnedIcon} {...props} />
-      <div className="h-[calc(100vh-156px)]">{children}</div>
+      <div className="h-[calc(100vh-92px)] max-h-[calc(100vh-92px)]">
+        {children}
+        <div className="pt-[64px]" />
+      </div>
       <NavigateFooter />
     </div>
   );
