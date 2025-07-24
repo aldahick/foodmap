@@ -1,6 +1,6 @@
 {
   "name": "@foodmap/monorepo",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Community Food Box Project",
   "type": "module",
   "author": "Alex Hicks <alex@alexhicks.net>",
