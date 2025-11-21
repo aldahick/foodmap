@@ -4,3 +4,4 @@ dist
 clients
 node_modules
 .aider*
+*.sql
