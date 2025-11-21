@@ -1,5 +1,5 @@
 # Make sure to build this image using the root context, not "web" context
-FROM node:22-alpine AS base
+FROM node:24-alpine AS base
 
 WORKDIR /foodmap
 RUN npm i -g pnpm@^10

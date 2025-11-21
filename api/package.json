@@ -12,7 +12,7 @@
     "url": "https://github.com/aldahick/foodmap/issues"
   },
   "engines": {
-    "node": "^22.15"
+    "node": "^24"
   },
   "scripts": {
     "dev": "NODE_OPTIONS=--enable-source-maps nest start --watch",

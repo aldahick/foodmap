@@ -1,8 +1,12 @@
 packages:
   - api
   - web
+
 onlyBuiltDependencies:
   - '@apollo/protobufjs'
+  - '@biomejs/biome'
   - '@nestjs/core'
+  - '@parcel/watcher'
   - '@sentry/cli'
   - '@swc/core'
+  - esbuild

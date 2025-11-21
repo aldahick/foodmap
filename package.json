@@ -5,9 +5,9 @@
   "type": "module",
   "author": "Alex Hicks <alex@alexhicks.net>",
   "license": "MIT",
-  "packageManager": "pnpm@10.6.4",
+  "packageManager": "pnpm@10.18.3",
   "engines": {
-    "node": "^22.15"
+    "node": "^24"
   },
   "scripts": {
     "dev": "pnpm run --parallel -r dev",

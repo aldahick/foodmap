@@ -22,7 +22,7 @@ export const useGeolocation = () => {
         });
       },
       (err) => {
-        console.log(err);
+        console.warn("Geolocation position watch failed", err);
       },
     );
     return () => {

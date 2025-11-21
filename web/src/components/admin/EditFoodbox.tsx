@@ -46,8 +46,6 @@ export const EditFoodbox: React.FC<EditFoodboxProps> = ({
   const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault();
 
-    console.log(formData, foodbox?.id);
-
     try {
       await upsertFoodbox({
         variables: {
