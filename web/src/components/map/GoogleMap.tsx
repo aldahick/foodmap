@@ -1,6 +1,6 @@
 import {
-  APIProvider,
   AdvancedMarker,
+  APIProvider,
   ControlPosition,
   MapCameraChangedEvent,
   MapMouseEvent,

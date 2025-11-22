@@ -1,10 +1,11 @@
 import { Injectable, type OnApplicationBootstrap } from "@nestjs/common";
-import { type OrchidORM, orchidORM } from "orchid-orm";
+import { type OrchidORM } from "orchid-orm";
+import { orchidORM } from "orchid-orm/postgres-js";
 import { type Config, InjectConfig } from "../config/config.service.js";
 import { runMigration } from "./migration.js";
 import { FoodboxTable } from "./tables/foodbox.table.js";
-import { UserPermissionTable } from "./tables/user-permission.table.js";
 import { UserTable } from "./tables/user.table.js";
+import { UserPermissionTable } from "./tables/user-permission.table.js";
 
 const tables = {
   foodboxes: FoodboxTable,

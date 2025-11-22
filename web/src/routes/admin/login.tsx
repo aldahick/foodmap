@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { GoogleLogin } from "../../components/GoogleLogin";
 import { ADMIN_NAVBAR_LINKS } from "../../components/admin/AdminNavbar";
+import { GoogleLogin } from "../../components/GoogleLogin";
 import { NavigateLayout } from "../../components/navigate/NavigateLayout";
 import { useAuth } from "../../hooks/useAuth";
 import { IAuthTokenFragment } from "../../sdk/graphql.types";

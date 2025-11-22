@@ -1,7 +1,11 @@
-import { Args, Context, Info, ResolveField, Root } from "@nestjs/graphql";
 import {
+  Args,
+  Context,
+  Info,
   Mutation as MutationDecorator,
   Query as QueryDecorator,
+  ResolveField,
+  Root,
 } from "@nestjs/graphql";
 import { createBatchResolver } from "graphql-resolve-batch";
 import type { IMutation, IQuery } from "../graphql.js";

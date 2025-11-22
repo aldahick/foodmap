@@ -5,9 +5,7 @@ import { NavigateLayout } from "../components/navigate/NavigateLayout";
 import { useGetFoodboxesQuery } from "../sdk/graphql.types";
 
 export const IndexRoute: React.FC = () => {
-  const {
-    data: { foodboxes } = {},
-  } = useGetFoodboxesQuery();
+  const { data: { foodboxes } = {} } = useGetFoodboxesQuery();
 
   return (
     <NavigateLayout title="Map">
