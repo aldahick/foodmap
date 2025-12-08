@@ -1,3 +1,4 @@
+/// <reference types="google.maps" />
 import { useMapsLibrary } from "@vis.gl/react-google-maps";
 import { useState } from "react";
 import { Button, Input } from "rsc-daisyui";

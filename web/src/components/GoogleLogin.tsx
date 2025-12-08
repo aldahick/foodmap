@@ -1,19 +1,22 @@
+import { useLazyQuery, useQuery } from "@apollo/client/react";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import googleSigninImageUrl from "../images/google-signin.svg";
+import { getFragmentData } from "../sdk/gql";
 import {
-  IAuthTokenFragment,
-  useGetAuthSsoRedirectQuery,
-  useGetAuthTokenLazyQuery,
-} from "../sdk/graphql.types";
+  AuthTokenFragment,
+  AuthTokenFragmentDoc,
+  GetAuthSsoRedirectDocument,
+  GetAuthTokenDocument,
+} from "../sdk/gql/graphql";
 
 const SSO_STATE_KEY = "bartop.ssoState";
 
 export const GoogleLogin: React.FC<{
-  onLogin: (token: IAuthTokenFragment) => void;
+  onLogin: (token: AuthTokenFragment) => void;
 }> = ({ onLogin }) => {
-  const [getAuthToken] = useGetAuthTokenLazyQuery();
-  const { data } = useGetAuthSsoRedirectQuery();
+  const [getAuthToken] = useLazyQuery(GetAuthTokenDocument);
+  const { data } = useQuery(GetAuthSsoRedirectDocument);
   const [searchParams, setSearchParams] = useSearchParams();
   const [ssoStart, setSsoStart] = useState(false);
 
@@ -31,7 +34,7 @@ export const GoogleLogin: React.FC<{
     setSearchParams({});
     getAuthToken({ variables: { token } }).then(({ data }) => {
       if (data) {
-        onLogin(data.authToken);
+        onLogin(getFragmentData(AuthTokenFragmentDoc, data.authToken));
       }
     });
   }, [searchParams, getAuthToken, onLogin, setSearchParams]);

@@ -1,18 +1,19 @@
+import { useMutation, useQuery } from "@apollo/client/react";
 import { useState } from "react";
 import { AdminFoodboxMap } from "../../components/admin/AdminFoodboxMap";
 import { EditFoodbox } from "../../components/admin/EditFoodbox";
 import {
-  IFoodbox,
-  useDeleteFoodboxMutation,
-  useGetFoodboxesQuery,
-} from "../../sdk/graphql.types";
+  DeleteFoodboxDocument,
+  Foodbox,
+  GetFoodboxesDocument,
+} from "../../sdk/gql/graphql";
 
 export const AdminFoodboxesRoute: React.FC = () => {
-  const [editingFoodbox, setEditingFoodbox] = useState<IFoodbox | null>(null);
+  const [editingFoodbox, setEditingFoodbox] = useState<Foodbox | null>(null);
   const [isCreating, setIsCreating] = useState(false);
 
-  const { data, loading, error, refetch } = useGetFoodboxesQuery();
-  const [deleteFoodbox] = useDeleteFoodboxMutation();
+  const { data, loading, error, refetch } = useQuery(GetFoodboxesDocument);
+  const [deleteFoodbox] = useMutation(DeleteFoodboxDocument);
 
   const handleDelete = async (id: string) => {
     if (confirm("Are you sure you want to delete this foodbox?")) {
@@ -21,7 +22,7 @@ export const AdminFoodboxesRoute: React.FC = () => {
     }
   };
 
-  const handleEdit = (foodbox: IFoodbox) => {
+  const handleEdit = (foodbox: Foodbox) => {
     setEditingFoodbox(foodbox);
     setIsCreating(false);
   };

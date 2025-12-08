@@ -1,12 +1,12 @@
 import React from "react";
 import { Button } from "rsc-daisyui";
-import { IFoodbox } from "../../sdk/graphql.types";
+import { Foodbox } from "../../sdk/gql/graphql";
 import { FoodboxMarker } from "../FoodboxMarker";
 import { GoogleMap } from "../map/GoogleMap";
 
 interface AdminFoodboxMapProps {
-  foodboxes: IFoodbox[];
-  onEdit: (foodbox: IFoodbox) => void;
+  foodboxes: Foodbox[];
+  onEdit: (foodbox: Foodbox) => void;
   onDelete: (id: string) => void;
   onCreate: () => void;
 }

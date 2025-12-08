@@ -1,5 +1,5 @@
 import { atom, useAtom } from "jotai";
-import { IAuthTokenFragment, IPermission } from "../sdk/graphql.types";
+import { AuthTokenFragment, Permission } from "../sdk/gql/graphql.js";
 import { isAuthorized } from "../util/permission.js";
 
 const STORAGE_KEY = "cfbp.authToken";
@@ -8,7 +8,7 @@ const getFromStorage = () => {
   if (!storedValue) {
     return;
   }
-  const storedToken: IAuthTokenFragment = JSON.parse(storedValue);
+  const storedToken: AuthTokenFragment = JSON.parse(storedValue);
   const expiresAt = new Date(storedToken.expiresAt);
   if (Date.now() > expiresAt.getTime()) {
     localStorage.removeItem(STORAGE_KEY);
@@ -17,13 +17,13 @@ const getFromStorage = () => {
   return storedToken;
 };
 
-const authTokenAtom = atom<IAuthTokenFragment | undefined>(getFromStorage());
+const authTokenAtom = atom<AuthTokenFragment | undefined>(getFromStorage());
 
 export const useAuth = () => {
   const [authToken, setAuthToken] = useAtom(authTokenAtom);
 
   return {
-    set: (value: IAuthTokenFragment | undefined) => {
+    set: (value: AuthTokenFragment | undefined) => {
       setAuthToken(value);
       if (value) {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(value));
@@ -32,7 +32,7 @@ export const useAuth = () => {
       }
     },
     token: authToken,
-    isAuthorized: (permission: IPermission) =>
+    isAuthorized: (permission: Permission) =>
       authToken && isAuthorized(authToken.user.permissions, permission),
   };
 };

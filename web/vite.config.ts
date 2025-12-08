@@ -11,9 +11,7 @@ export default defineConfig({
   },
   css: {
     preprocessorOptions: {
-      scss: {
-        api: "modern",
-      },
+      scss: {},
     },
   },
   plugins: [tailwindcss(), react()],
