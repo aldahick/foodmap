@@ -6,7 +6,8 @@ import {
 } from "@vis.gl/react-google-maps";
 import { useState } from "react";
 import { Button } from "rsc-daisyui";
-import { Foodbox, FoodboxState } from "../sdk/gql/graphql";
+import { useAuth } from "../hooks/useAuth";
+import { Foodbox, FoodboxState, Permission } from "../sdk/gql/graphql";
 
 const pinColor: Record<FoodboxState, string> = {
   [FoodboxState.Full]: "#22c55e", // green
@@ -26,6 +27,7 @@ export const FoodboxMarker: React.FC<{
   onEdit?: () => void;
   onDelete?: () => void;
 }> = ({ foodbox, onEdit, onDelete }) => {
+  const auth = useAuth();
   const [markerRef, marker] = useAdvancedMarkerRef();
   const [showInfo, setShowInfo] = useState(false);
 
@@ -64,14 +66,16 @@ export const FoodboxMarker: React.FC<{
             <p className="text-sm text-gray-600 mb-2">
               Status: {stateLabel[foodbox.state] ?? foodbox.state}
             </p>
-            <div className="flex gap-2">
-              <Button size="sm" color="primary" onClick={handleEditClick}>
-                Edit
-              </Button>
-              <Button size="sm" color="secondary" onClick={handleDeleteClick}>
-                Delete
-              </Button>
-            </div>
+            {auth.isAuthorized(Permission.Foodboxes) && (
+              <div className="flex gap-2">
+                <Button size="sm" color="primary" onClick={handleEditClick}>
+                  Edit
+                </Button>
+                <Button size="sm" color="secondary" onClick={handleDeleteClick}>
+                  Delete
+                </Button>
+              </div>
+            )}
           </div>
         </InfoWindow>
       )}

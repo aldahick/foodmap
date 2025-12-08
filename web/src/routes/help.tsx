@@ -22,7 +22,7 @@ const ALL_LINKS = [
   {
     Icon: () => <img src={donateHelpIconUrl} alt="Donate Icon" />,
     title: "Donate",
-    to: "https://www.cultivateindy.org/donate",
+    to: "https://www.zeffy.com/en-US/donation-form/donate-to-cultivate-and-community-food-box-project",
   },
   {
     Icon: () => <img src={listHelpIconUrl} alt="List Help Icon" />,
@@ -63,6 +63,7 @@ export const HelpRoute: React.FC = () => {
               <Link
                 key={link.to}
                 to={link.to}
+                href={link.to}
                 className="no-underline px-4 py-2 w-[48%]"
               >
                 <div className="px-4 mb-2">
