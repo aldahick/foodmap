@@ -1,26 +1,26 @@
-import { useApolloClient } from "@apollo/client";
+import { useApolloClient, useMutation } from "@apollo/client/react";
 import { SaveIcon } from "lucide-react";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { sortBy } from "remeda";
 import { Button, Card, Checkbox, Input, Label } from "rsc-daisyui";
 import {
-  IPermission,
-  IUser,
-  useDeleteUserMutation,
-  useUpsertUserMutation,
-} from "../../sdk/graphql.types";
+  DeleteUserDocument,
+  Permission,
+  UpsertUserDocument,
+  User,
+} from "../../sdk/gql/graphql";
 
-const permissionLabels: Record<IPermission, string> = {
-  [IPermission.All]: "All",
-  [IPermission.Foodboxes]: "Manage Foodboxes",
-  [IPermission.Users]: "Manage Users",
+const permissionLabels: Record<Permission, string> = {
+  [Permission.All]: "All",
+  [Permission.Foodboxes]: "Manage Foodboxes",
+  [Permission.Users]: "Manage Users",
 };
 
-export const EditUser: React.FC<{ user?: IUser }> = ({ user }) => {
+export const EditUser: React.FC<{ user?: User }> = ({ user }) => {
   const client = useApolloClient();
-  const [deleteUser] = useDeleteUserMutation();
-  const [upsertUser] = useUpsertUserMutation();
+  const [deleteUser] = useMutation(DeleteUserDocument);
+  const [upsertUser] = useMutation(UpsertUserDocument);
   const [deleting, setDeleting] = useState(false);
   const [fields, setFields] = useState({
     name: user?.name ?? "",
@@ -74,13 +74,13 @@ export const EditUser: React.FC<{ user?: IUser }> = ({ user }) => {
     };
 
   const handlePermissionChange =
-    (permission: IPermission) => (evt: React.ChangeEvent<HTMLInputElement>) => {
+    (permission: Permission) => (evt: React.ChangeEvent<HTMLInputElement>) => {
       setFields((prev) => {
         let newPermissions = evt.target.checked
           ? prev.permissions.concat([permission])
           : prev.permissions.filter((p) => p !== permission);
-        if (newPermissions.includes(IPermission.All)) {
-          newPermissions = [IPermission.All];
+        if (newPermissions.includes(Permission.All)) {
+          newPermissions = [Permission.All];
         }
         return { ...prev, permissions: newPermissions };
       });
@@ -92,7 +92,7 @@ export const EditUser: React.FC<{ user?: IUser }> = ({ user }) => {
     }
   };
 
-  const hasAll = fields.permissions.includes(IPermission.All);
+  const hasAll = fields.permissions.includes(Permission.All);
 
   return (
     <Card className="space-y-2 p-4 border border-gray-300 shadow">
@@ -123,12 +123,12 @@ export const EditUser: React.FC<{ user?: IUser }> = ({ user }) => {
                 <div key={permission} className="flex items-center gap-2">
                   <Checkbox
                     type="switch"
-                    disabled={hasAll && permission !== IPermission.All}
+                    disabled={hasAll && permission !== Permission.All}
                     checked={
                       hasAll ||
-                      fields.permissions.includes(permission as IPermission)
+                      fields.permissions.includes(permission as Permission)
                     }
-                    onChange={handlePermissionChange(permission as IPermission)}
+                    onChange={handlePermissionChange(permission as Permission)}
                   />
                   <Label>{label}</Label>
                 </div>

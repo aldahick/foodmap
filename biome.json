@@ -1,8 +1,9 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.3.8/schema.json",
   "files": {
-    "ignore": [
-      "*.fixture.json"
+    "includes": [
+      "**",
+      "!**/*.fixture.json"
     ]
   },
   "formatter": {
@@ -10,12 +11,21 @@
     "indentStyle": "space",
     "indentWidth": 2
   },
-  "organizeImports": {
-    "enabled": true
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
   },
   "javascript": {
     "parser": {
       "unsafeParameterDecoratorsEnabled": true
+    }
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
     }
   },
   "linter": {
@@ -30,7 +40,8 @@
         "noUnusedImports": "error",
         "noUnusedVariables": "warn",
         "useExhaustiveDependencies": "warn",
-        "useHookAtTopLevel": "error"
+        "useHookAtTopLevel": "error",
+        "noSwitchDeclarations": "error"
       },
       "style": {
         "noDefaultExport": "error",
@@ -41,8 +52,7 @@
         "useForOf": "error",
         "useFragmentSyntax": "error",
         "useImportType": "off",
-        "useShorthandAssign": "error",
-        "useSingleCaseStatement": "error"
+        "useShorthandAssign": "error"
       },
       "suspicious": {
         "noSkippedTests": "error",
@@ -52,18 +62,28 @@
   },
   "overrides": [
     {
-      "include": [
-        "*.config.js",
-        "*.config.ts",
-        "*lintstagedrc.mjs",
-        "codegen.graphql.ts",
-        "vite.config.ts",
-        "vitest.config.ts"
+      "includes": [
+        "**/*.config.js",
+        "**/*.config.ts",
+        "**/*lintstagedrc.mjs",
+        "**/codegen.graphql.ts",
+        "**/vite.config.ts",
+        "**/vitest.config.ts"
       ],
       "linter": {
         "rules": {
           "style": {
             "noDefaultExport": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["**/sdk/gql/*.ts"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noExplicitAny": "off"
           }
         }
       }

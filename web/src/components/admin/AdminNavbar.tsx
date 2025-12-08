@@ -1,14 +1,14 @@
-import { IPermission } from "../../sdk/graphql.types";
+import { Permission } from "../../sdk/gql/graphql";
 
 export const ADMIN_NAVBAR_LINKS = [
   {
     label: "Users",
     url: "/admin/users",
-    permission: IPermission.Users,
+    permission: Permission.Users,
   },
   {
     label: "Foodboxes",
     url: "/admin/foodboxes",
-    permission: IPermission.Foodboxes,
+    permission: Permission.Foodboxes,
   },
 ];

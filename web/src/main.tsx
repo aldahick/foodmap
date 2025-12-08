@@ -1,8 +1,8 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { Layout } from "./components/Layout";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AdminLayout } from "./components/admin/AdminLayout";
+import { Layout } from "./components/Layout";
 import { IndexRoute } from "./routes";
 import { AdminFoodboxesRoute } from "./routes/admin/foodboxes";
 import { AdminLoginRoute } from "./routes/admin/login";

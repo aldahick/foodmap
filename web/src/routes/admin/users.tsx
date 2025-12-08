@@ -1,11 +1,12 @@
+import { useQuery } from "@apollo/client/react";
 import React from "react";
 import { sortBy } from "remeda";
 import { Loading } from "rsc-daisyui";
 import { EditUser } from "../../components/admin/EditUser";
-import { useGetUsersQuery } from "../../sdk/graphql.types";
+import { GetUsersDocument } from "../../sdk/gql/graphql";
 
 export const AdminUsersRoute: React.FC = () => {
-  const { data, loading } = useGetUsersQuery();
+  const { data, loading } = useQuery(GetUsersDocument);
 
   if (loading) {
     return <Loading />;

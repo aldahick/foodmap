@@ -1,16 +1,16 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { GoogleLogin } from "../../components/GoogleLogin";
 import { ADMIN_NAVBAR_LINKS } from "../../components/admin/AdminNavbar";
+import { GoogleLogin } from "../../components/GoogleLogin";
 import { NavigateLayout } from "../../components/navigate/NavigateLayout";
 import { useAuth } from "../../hooks/useAuth";
-import { IAuthTokenFragment } from "../../sdk/graphql.types";
+import { AuthTokenFragment } from "../../sdk/gql/graphql";
 
 export const AdminLoginRoute: React.FC = () => {
   const auth = useAuth();
   const navigate = useNavigate();
 
-  const handleLogin = (token: IAuthTokenFragment) => {
+  const handleLogin = (token: AuthTokenFragment) => {
     auth.set(token);
     const link = ADMIN_NAVBAR_LINKS.find((link) =>
       token.user.permissions.includes(link.permission),

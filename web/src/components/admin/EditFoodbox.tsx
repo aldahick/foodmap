@@ -1,3 +1,4 @@
+import { useMutation } from "@apollo/client/react";
 import { APIProvider, MapMouseEvent } from "@vis.gl/react-google-maps";
 import { useEffect, useState } from "react";
 import { entries } from "remeda";
@@ -5,16 +6,16 @@ import { Button, Input, Modal, Select } from "rsc-daisyui";
 import { config } from "../../config";
 import { DEFAULT_POSITION } from "../../hooks/useGeolocation";
 import {
-  IFoodbox,
-  IFoodboxInput,
-  IFoodboxState,
-  useUpsertFoodboxMutation,
-} from "../../sdk/graphql.types";
+  Foodbox,
+  FoodboxInput,
+  FoodboxState,
+  UpsertFoodboxDocument,
+} from "../../sdk/gql/graphql";
 import { AddressGeocoder } from "../map/AddressGeocoder";
 import { GoogleMap } from "../map/GoogleMap";
 
 interface EditFoodboxProps {
-  foodbox: IFoodbox | null;
+  foodbox: Foodbox | null;
   onClose: () => void;
 }
 
@@ -22,13 +23,13 @@ export const EditFoodbox: React.FC<EditFoodboxProps> = ({
   foodbox,
   onClose,
 }) => {
-  const [formData, setFormData] = useState<IFoodboxInput>({
+  const [formData, setFormData] = useState<FoodboxInput>({
     name: "",
     position: DEFAULT_POSITION, // Default to Indianapolis
-    state: IFoodboxState.Full,
+    state: FoodboxState.Full,
   });
 
-  const [upsertFoodbox, { loading }] = useUpsertFoodboxMutation();
+  const [upsertFoodbox, { loading }] = useMutation(UpsertFoodboxDocument);
 
   useEffect(() => {
     if (foodbox) {
@@ -59,9 +60,9 @@ export const EditFoodbox: React.FC<EditFoodboxProps> = ({
     }
   };
 
-  const handleChange = <Key extends keyof IFoodboxInput>(
+  const handleChange = <Key extends keyof FoodboxInput>(
     field: Key,
-    value: IFoodboxInput[Key],
+    value: FoodboxInput[Key],
   ) => {
     setFormData((prev) => ({
       ...prev,
@@ -145,10 +146,10 @@ export const EditFoodbox: React.FC<EditFoodboxProps> = ({
               id="foodbox-state"
               value={formData.state}
               onChange={(evt) =>
-                handleChange("state", evt.target.value as IFoodboxState)
+                handleChange("state", evt.target.value as FoodboxState)
               }
             >
-              {entries(IFoodboxState).map(([label, value]) => (
+              {entries(FoodboxState).map(([label, value]) => (
                 <option key={label} value={value}>
                   {label}
                 </option>

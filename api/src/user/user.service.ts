@@ -2,8 +2,8 @@ import { Injectable } from "@nestjs/common";
 import { type WhereArg } from "orchid-orm";
 import { IPermission, type IUser } from "../graphql.js";
 import { DatabaseService } from "../service/database/database.service.js";
-import type { UserPermissionModel } from "../service/database/tables/user-permission.table.js";
 import { type UserModel } from "../service/database/tables/user.table.js";
+import type { UserPermissionModel } from "../service/database/tables/user-permission.table.js";
 
 @Injectable()
 export class UserService {

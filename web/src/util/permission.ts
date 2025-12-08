@@ -1,6 +1,6 @@
-import { IPermission } from "../sdk/graphql.types";
+import { Permission } from "../sdk/gql/graphql";
 
 export const isAuthorized = (
-  permissions: IPermission[],
-  permission: IPermission,
-) => permissions.includes(IPermission.All) || permissions.includes(permission);
+  permissions: Permission[],
+  permission: Permission,
+) => permissions.includes(Permission.All) || permissions.includes(permission);

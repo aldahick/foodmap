@@ -1,13 +1,12 @@
+import { useQuery } from "@apollo/client/react";
 import type React from "react";
 import { FoodboxMarker } from "../components/FoodboxMarker";
 import { GoogleMap } from "../components/map/GoogleMap";
 import { NavigateLayout } from "../components/navigate/NavigateLayout";
-import { useGetFoodboxesQuery } from "../sdk/graphql.types";
+import { GetFoodboxesDocument } from "../sdk/gql/graphql";
 
 export const IndexRoute: React.FC = () => {
-  const {
-    data: { foodboxes } = {},
-  } = useGetFoodboxesQuery();
+  const { data: { foodboxes } = {} } = useQuery(GetFoodboxesDocument);
 
   return (
     <NavigateLayout title="Map">

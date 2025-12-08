@@ -2,6 +2,7 @@ import type { CodegenConfig } from "@graphql-codegen/cli";
 
 const config: CodegenConfig = {
   schema: "../api/gql/**",
+  documents: ["./gql/**", "../api/gql/**"],
   config: {
     maybeValue: "T | undefined",
     typesPrefix: "I",
@@ -13,13 +14,12 @@ const config: CodegenConfig = {
     afterAllFileWrite: "biome check --write --unsafe",
   },
   generates: {
-    "src/sdk/graphql.types.ts": {
+    "src/sdk/gql/": {
       documents: ["gql/**", "../api/gql/**"],
-      plugins: [
-        "typescript",
-        "typescript-operations",
-        "typescript-react-apollo",
-      ],
+      preset: "client",
+      presetConfig: {
+        fragmentMasking: { unmaskFunctionName: "getFragmentData" },
+      },
     },
   },
 };

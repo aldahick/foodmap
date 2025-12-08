@@ -6,22 +6,22 @@ import {
 } from "@vis.gl/react-google-maps";
 import { useState } from "react";
 import { Button } from "rsc-daisyui";
-import { IFoodbox, IFoodboxState } from "../sdk/graphql.types";
+import { Foodbox, FoodboxState } from "../sdk/gql/graphql";
 
-const pinColor: Record<IFoodboxState, string> = {
-  [IFoodboxState.Full]: "#22c55e", // green
-  [IFoodboxState.ReportedEmpty]: "#f97316", // orange
-  [IFoodboxState.ConfirmedEmpty]: "#ef4444", // red
+const pinColor: Record<FoodboxState, string> = {
+  [FoodboxState.Full]: "#22c55e", // green
+  [FoodboxState.ReportedEmpty]: "#f97316", // orange
+  [FoodboxState.ConfirmedEmpty]: "#ef4444", // red
 };
 
-const stateLabel: Record<IFoodboxState, string> = {
-  [IFoodboxState.Full]: "Full",
-  [IFoodboxState.ReportedEmpty]: "Reported Empty",
-  [IFoodboxState.ConfirmedEmpty]: "Confirmed Empty",
+const stateLabel: Record<FoodboxState, string> = {
+  [FoodboxState.Full]: "Full",
+  [FoodboxState.ReportedEmpty]: "Reported Empty",
+  [FoodboxState.ConfirmedEmpty]: "Confirmed Empty",
 };
 
 export const FoodboxMarker: React.FC<{
-  foodbox: IFoodbox;
+  foodbox: Foodbox;
   showActions: boolean;
   onEdit?: () => void;
   onDelete?: () => void;

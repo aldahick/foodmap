@@ -2,7 +2,7 @@ import "dotenv/config.js";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { Logger } from "@nestjs/common";
-import { rakeDb } from "orchid-orm/migrations";
+import { rakeDb } from "orchid-orm/migrations/postgres-js";
 import { BaseTable } from "./base.table.js";
 
 const logger = new Logger("DatabaseService");

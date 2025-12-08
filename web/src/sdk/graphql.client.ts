@@ -1,21 +1,15 @@
-import { ApolloClient, HttpLink, InMemoryCache, from } from "@apollo/client";
-import { onError } from "@apollo/client/link/error";
+import { ApolloClient, from, HttpLink, InMemoryCache } from "@apollo/client";
+import { ErrorLink } from "@apollo/client/link/error";
 import { toast } from "react-toastify";
 import { config } from "../config";
 
 export const getApolloClient = (authToken?: string) => {
-  const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
+  const errorLink = new ErrorLink(({ error, operation }) => {
     console.error(`GraphQL request ${operation.operationName} failed`, {
-      graphQLErrors,
-      networkError,
+      error,
     });
-    if (graphQLErrors) {
-      for (const error of graphQLErrors) {
-        toast(error.message, { type: "error" });
-      }
-    }
-    if (networkError) {
-      toast(networkError.message, { type: "error" });
+    if (error) {
+      toast(error.message, { type: "error" });
     }
   });
 

@@ -1,4 +1,4 @@
-import { ApolloProvider } from "@apollo/client";
+import { ApolloProvider } from "@apollo/client/react";
 import type React from "react";
 import { useMemo } from "react";
 import { Outlet } from "react-router";
